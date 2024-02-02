@@ -8,8 +8,10 @@
     min-width: 50%;
 }
 .letter{
-    font-family: 'Comic Sans MS'
+    font-family: 'Comic Sans MS';
+    color: black;
 }
+
 .e{
     font-size:180%;
     font-weight: bolder;

@@ -8,6 +8,10 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { AuthloginComponent } from './components/auth/authlogin/authlogin.component';
 import { AuthregisterComponent } from './components/auth/authregister/authregister.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearproductoComponent } from './components/productos/crearproducto/crearproducto.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +20,16 @@ import { AuthregisterComponent } from './components/auth/authregister/authregist
     SidebarComponent,
     FooterComponent,
     AuthloginComponent,
-    AuthregisterComponent
+    AuthregisterComponent,
+    CrearproductoComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

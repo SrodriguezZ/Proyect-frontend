@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { AuthserviceService } from './services/serauth/authservice.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'producto';
-
-  centinela: boolean = false;
+  cuerpo: boolean = false;
   centinelaLogin: boolean = false;
+  private authSubscription: Subscription;
+  
+  constructor(private authService: AuthserviceService){
+    this.authSubscription =this.authService.userLoginOnObservable.subscribe({
+      next:((userLoginOn)=>{
+        (this.cuerpo= userLoginOn), (this.centinelaLogin=userLoginOn)
+      })
+    })
+  }
+
+
 }
