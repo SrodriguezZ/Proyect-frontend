@@ -1,0 +1,26 @@
+.bg-login{
+    background: url(https://plus.unsplash.com/premium_photo-1700830193661-f6822dca5eee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-position: center;
+    background-size: cover;
+  }
+
+.nav-width{
+    min-width: 50%;
+}
+.letter{
+    font-family: 'Comic Sans MS'
+}
+.e{
+    font-size:180%;
+    font-weight: bolder;
+}
+
+.ng-valid:not(form).ng-touched{
+    border-left: 5px solid seagreen;
+  }
+  
+  .ng-invalid:not(form).ng-touched{
+    border-left: 5px solid red;
+  }
+
+  

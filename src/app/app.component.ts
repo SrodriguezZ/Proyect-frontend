@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'producto';
+
+  centinela: boolean = false;
+  centinelaLogin: boolean = false;
 }

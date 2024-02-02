@@ -32,12 +32,23 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/img/error-404-monochrome.svg"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/css/styles.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+              "src/js/scripts.js",
+              "src/assets/demo/chart-area-demo.js",
+              "src/assets/demo/chart-bar-demo.js",
+              "src/js/datatables-simple-demo.js",
+              "src/assets/demo/chart-pie-demo.js",
+              "src/assets/demo/datatables-demo.js",
+              "src/assets/vendor/chart.js/Chart.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -101,5 +112,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

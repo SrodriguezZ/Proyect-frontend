@@ -1,0 +1,106 @@
+<div style="background-color: black; height: 100vh;">
+    <br>
+    <br>
+    <br>
+    <div class="container " style="margin-top:5%; max-width: 60%;">
+        <!-- Outer Row -->
+        <div class="row justify-content-center ">
+
+            <div class="col-xl-10 col-lg-11 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+
+                    <div class="card-body p-0" >
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login"></div>
+                            <div class="col-lg-6">
+                                <ul class="nav nav-tabs" id="myTabs">
+                                    <li class="nav-item nav-width">
+                                        <a class="nav-link active letter" id="usuario-tab" data-toggle="tab" href="#login"
+                                            role="tab" aria-controls="usuario" aria-selected="true">Iniciar Sesion</a>
+                                    </li>
+                                    <li class="nav-item nav-width">
+                                        <a class="nav-link letter " id="mascota-tab" data-toggle="tab" href="#registro"
+                                            role="tab" aria-controls="mascota" aria-selected="false">Registrar
+                                            Usuario</a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content" id="myTabsContent">
+                                    <div class="tab-pane fade show active" id="login" role="tabpanel"
+                                        aria-labelledby="usuario-tab" aria-labelledby="usuario-tab">
+                                        <form >
+                                            <div class="p-5">
+                                                <div class="text-center">
+                                                    <h1 class="h4 text-gray-900 mb-4 letter e" >Login
+                                                    </h1>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input formControlName="username" type="text"
+                                                        class="form-control form-control-user" id="username"
+                                                        aria-describedby="emailHelp"
+                                                        placeholder="Ingrese su username...!!">
+                                                </div>
+                                                <br>
+                                                <div class="form-group">
+                                                    <input formControlName="password" type="password"
+                                                        class="form-control form-control-user" id="exampleInputPassword"
+                                                        placeholder="Password">
+                                                </div>
+           
+                                                <hr>
+                                                <button  type="button"
+                                                    class="btn btn-primary btn-user btn-block">
+                                                    <i class="fa-solid fa-users"></i>Login
+                                                </button>
+                                                <hr>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="registro" role="tabpanel"
+                                        aria-labelledby="mascota-tab">
+                                        <form >
+                                            <div class="p-5">
+                                                <div class="text-center">
+                                                    <h1 class="h4 text-gray-900 mb-4 letter e">Registrar Usuario
+                                                    </h1>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input formControlName="username" type="text"
+                                                        class="form-control form-control-user" 
+                                                        placeholder="Ingrese su username..!">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input formControlName="password" type="password"
+                                                        class="form-control form-control-user" 
+                                                        placeholder="Password">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input formControlName="email" type="email"
+                                                        class="form-control form-control-user" 
+                                                        placeholder="Ingrese su email">
+                                                </div>
+
+                                                <button  type="button" class="btn btn-primary btn-user btn-block">
+                                                    <i class="fa-solid fa-users"></i>Registrar Usuario
+                                                </button>
+                                                <hr>
+
+
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Prueba-->
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>
