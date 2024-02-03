@@ -1,14 +1,14 @@
-<div *ngIf="centinelaLogin">
+<div *ngIf="!centinelaLogin">
 
   <app-authlogin></app-authlogin>
 
 </div>
 
 
-<div *ngIf="!cuerpo">
+<div *ngIf="cuerpo">
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" >Market</a>
+    <a class="navbar-brand ps-3" >Gestión de Productos</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
@@ -26,7 +26,7 @@
                 <li><a class="dropdown-item" >Ajuste</a></li>
                 <li><a class="dropdown-item" >Perfil</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" >Cerrar Session</a></li>
+                <li><a class="dropdown-item" (click)="loginOff()">Cerrar Session</a></li>
             </ul>
         </li>
     </ul>

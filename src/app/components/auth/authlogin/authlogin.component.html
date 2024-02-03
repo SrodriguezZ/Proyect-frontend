@@ -1,4 +1,4 @@
-<div style="background-color: black; height: 100vh;">
+<div class="bodyLogin">
     <br>
     <br>
     <br>
@@ -34,7 +34,7 @@
                                         <form [formGroup]="formularioLogin">
                                             <div class="p-5">
                                                 <div class="text-center">
-                                                    <h1 class="h4 text-gray-900 mb-4 letter e">Login
+                                                    <h1 class="h4 text-gray-900 mb-4 letter e">WELCOME
                                                     </h1>
                                                 </div>
 
@@ -52,10 +52,17 @@
                                                 </div>
 
                                                 <hr>
-                                                <button (click)="loginOn()" type="button"
-                                                    class="btn btn-secondary btn-user btn-block">
-                                                    <i class="fa-solid fa-users"></i>Login
+                                                <div class="form-row ">
+                                                    <button (click)="loginOn()" type="button"
+                                                    class="btn btn-primary btn-user btn-block">
+                                                    <i class="fa-solid fa-lock-open"></i> Login
                                                 </button>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-user btn-block btncomando">
+                                                    <i class="fa-solid fa-ban"></i> Reset
+                                                </button>
+                                                </div>
+                                                
                                                 <hr>
                                             </div>
                                         </form>

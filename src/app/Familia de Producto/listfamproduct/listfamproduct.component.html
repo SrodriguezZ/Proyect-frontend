@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="board">
 
     <!-- Page Heading -->
     <br>
@@ -29,16 +29,16 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let product of fam_Product">
+                            <td>{{product.codigo}}</td>
+                            <td>{{product.nombre}}</td>
+                            <td>{{product.activo}}</td>
+                            <td>{{product.fechaCreacion}}</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm mx-3" >
+                                <button (click)="editProduct(product.idFamilia)" type="button" class="btn btn-primary btn-sm mx-3" >
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm mx-3">
+                                <button (click)="btnDelete(product.idFamilia)" type="button" class="btn btn-danger btn-sm mx-3">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </button>
                             </td>
@@ -49,6 +49,67 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<div *ngIf="editProduc">
+    <!-- Topbar Search -->
+<form [formGroup]="formEditar">
+    <div class="container mt-4">
+
+        <div class="card border-0 shadow-lg mx-auto my-4" style="max-width: 600px;">
+
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+
+                <div class="p-5"> 
+                    <h2 class="text-center mb-4">Familia de Productos</h2>
+
+
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código:</label>
+                        <input formControlName="codigo" type="text" class="form-control form-control-user" id="codigo"
+                            placeholder="Código">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input formControlName="nombre" type="text" class="form-control form-control-user" id="nombre"
+                            placeholder="Nombre">
+                    </div>
+                    <div class=" mb-3">
+                        <label for="fechaCreacion" class="form-label">Fecha Creación:</label>
+                        <input formControlName="fechaCreacion" type="text" class="form-control form-control-user"
+                            id="fechaCreacion" placeholder="Fecha Creación" readonly
+                            >
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="mb-3 row d-flex align-items-center">
+                            <div class="col-auto">
+                                <label class="form-check-label" for="flexCheckChecked">Producto Activo:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input formControlName="activo" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button  (click)="btnGuardar()" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </span>
+                            <span class="text"> Guardar Familia Producto</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</form>
+</div>
+
+
 <!-- /.container-fluid -->

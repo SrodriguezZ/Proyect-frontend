@@ -11,9 +11,13 @@
         "Famproducto",
         "famproductos",
         "Famproductos",
+        "listfamproduct",
         "Listfamproduct",
+        "loginoff",
         "postfamproducto",
         "postproduct",
-        "serauth"
+        "Produc",
+        "serauth",
+        "serv"
     ]
 }
