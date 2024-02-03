@@ -1,0 +1,81 @@
+<!-- Topbar Search -->
+<form>
+    <div class="container mt-4">
+
+        <div class="card border-0 shadow-lg mx-auto my-4" style="max-width: 600px;">
+
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+
+                <div class="p-5">
+
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código:</label>
+                        <input formControlName="codigo" type="text" class="form-control form-control-user" id="codigo"
+                            placeholder="Código">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input formControlName="nombre" type="text" class="form-control form-control-user" id="nombre"
+                            placeholder="Nombre">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio:</label>
+                        <input formControlName="precio" type="text" class="form-control form-control-user" id="precio"
+                            placeholder="Precio">
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="stock" class="form-label">Stock:</label>
+                            <input formControlName="stock" type="text" class="form-control form-control-user" id="stock"
+                                placeholder="Stock">
+                        </div>
+                        <div class="col">
+                            <label for="fechaCreacion" class="form-label">Fecha Creación:</label>
+                            <input formControlName="fechaCreacion" type="text" class="form-control form-control-user"
+                                id="fechaCreacion" placeholder="Fecha Creación">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="mb-3 row d-flex align-items-center">
+                            <div class="col-auto">
+                                <label class="form-check-label" for="flexCheckChecked">Producto Activo:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="familiaProducto" class="col-form-label col-sm-4">Familia Producto:</label>
+                        <div class="col-sm-8">
+                            <select class="form-select" id="familiaProducto">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fa-brands fa-product-hunt"></i>
+                            </span>
+                            <span class="text"> Guardar Producto</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</form>

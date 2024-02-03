@@ -10,8 +10,11 @@ import { AuthloginComponent } from './components/auth/authlogin/authlogin.compon
 import { AuthregisterComponent } from './components/auth/authregister/authregister.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CrearproductoComponent } from './components/productos/crearproducto/crearproducto.component';
 import { HomeComponent } from './components/home/home.component';
+import { PostproductComponent } from './components/productos/postproduct/postproduct.component';
+import { PruebasComponent } from './components/pruebas/pruebas.component';
+import { FamproductosComponent } from './Familia de Producto/famproductos/famproductos.component';
+import { ListfamproductComponent } from './Familia de Producto/listfamproduct/listfamproduct.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,11 @@ import { HomeComponent } from './components/home/home.component';
     FooterComponent,
     AuthloginComponent,
     AuthregisterComponent,
-    CrearproductoComponent,
-    HomeComponent
+    HomeComponent,
+    PostproductComponent,
+    PruebasComponent,
+    FamproductosComponent,
+    ListfamproductComponent
   ],
   imports: [
     BrowserModule,

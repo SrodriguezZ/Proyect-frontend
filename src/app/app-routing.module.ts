@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { AuthloginComponent } from './components/auth/authlogin/authlogin.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
-import { CrearproductoComponent } from './components/productos/crearproducto/crearproducto.component';
 import { HomeComponent } from './components/home/home.component';
+import { PostproductComponent } from './components/productos/postproduct/postproduct.component';
+import { FamproductosComponent } from './Familia de Producto/famproductos/famproductos.component';
 
 const routes: Routes = [
   {
@@ -19,12 +19,12 @@ const routes: Routes = [
     component:AuthloginComponent
   },
   {
-    path:'prueba',
-    component:FooterComponent
-  },
-  {
-    path:'crearproducto',
-    component:CrearproductoComponent
+    path:'familiaproductos',
+    component:FamproductosComponent
+  },{
+
+    path:'postproduct',
+    component:PostproductComponent
   }
 ];
 

@@ -14,7 +14,7 @@ export class AuthserviceService {
   constructor(private http:HttpClient) { }
 
   authLogin(login: Login):Observable<string>{
-    return this.http.post(environment.urlAuth+`/login`,login, { responseType: 'text' }).
+    return this.http.post(environment.urlAuth+`/ingreso`,login, { responseType: 'text' }).
     pipe(
       tap(()=>{
         this.userLongOn.next(true)
