@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PostproductComponent } from './components/productos/postproduct/postproduct.component';
 import { FamproductosComponent } from './Familia de Producto/famproductos/famproductos.component';
 import { ListfamproductComponent } from './Familia de Producto/listfamproduct/listfamproduct.component';
+import { ListProductosComponent } from './components/productos/list-productos/list-productos.component';
 
 const routes: Routes = [
   {
@@ -26,9 +27,14 @@ const routes: Routes = [
 
     path:'postproduct',
     component:PostproductComponent
-  },{
-    path:'listProduct',
+  },
+  {
+    path:'listFamiliaProductos',
     component:ListfamproductComponent
+  },
+  {
+    path:'listProductos',
+    component:ListProductosComponent
   }
 ];
 

@@ -40,7 +40,7 @@ export class ListfamproductComponent implements OnInit{
   editProduct(id: number) {
     this.board = false;
     this.editProduc= true;
-    console.log('Id mandado: ' + id)
+    console.log('Api ID: ' + id)
     this.idEditarForm = id;
     this.servForm_Product.getIdProduct(id).subscribe({
       next:((userDato)=>{
@@ -72,5 +72,14 @@ export class ListfamproductComponent implements OnInit{
       }),error:((errorDato)=>{console.log(errorDato)})
     })
   }
+
+  //getBtn
+  getBtn(){
+    this.board = true;
+    this.editProduc = false;
+    this.ngOnInit;
+  }
+
+  
 
 }

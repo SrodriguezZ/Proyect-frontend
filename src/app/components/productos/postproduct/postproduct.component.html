@@ -1,5 +1,5 @@
 <!-- Topbar Search -->
-<form>
+<form [formGroup]="formProducto">
     <div class="container mt-4">
 
         <div class="card border-0 shadow-lg mx-auto my-4" style="max-width: 600px;">
@@ -30,13 +30,13 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="stock" class="form-label">Stock:</label>
-                            <input formControlName="stock" type="text" class="form-control form-control-user" id="stock"
+                            <input formControlName="stock" type="number" class="form-control form-control-user" id="stock"
                                 placeholder="Stock">
                         </div>
                         <div class="col">
                             <label for="fechaCreacion" class="form-label">Fecha Creación:</label>
-                            <input formControlName="fechaCreacion" type="text" class="form-control form-control-user"
-                                id="fechaCreacion" placeholder="Fecha Creación">
+                            <input formControlName="fechaCreacion"  class="form-control form-control-user"
+                                id="fechaCreacion" placeholder="Fecha Creación" readonly>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -45,7 +45,7 @@
                                 <label class="form-check-label" for="flexCheckChecked">Producto Activo:</label>
                             </div>
                             <div class="col-auto">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <input formControlName="activo" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                             </div>
                         </div>
                     </div>
@@ -53,18 +53,14 @@
                     <div class="mb-3 row">
                         <label for="familiaProducto" class="col-form-label col-sm-4">Familia Producto:</label>
                         <div class="col-sm-8">
-                            <select class="form-select" id="familiaProducto">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select  formControlName="familia_productos" class="form-select" id="familiaProducto">
+                                <option *ngFor="let prod_family of ProductFamily" [value]="prod_family.idFamilia">  ID: {{prod_family.idFamilia}} PRODUCTO: {{prod_family.nombre}}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="text-center">
-                        <button class="btn btn-primary btn-icon-split">
+                        <button (click)="btnGuardar()" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fa-brands fa-product-hunt"></i>
                             </span>

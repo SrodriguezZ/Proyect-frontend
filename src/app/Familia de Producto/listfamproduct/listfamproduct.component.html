@@ -1,8 +1,5 @@
 <div class="container-fluid" *ngIf="board">
-
-    <!-- Page Heading -->
     <br>
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="m-0 font-weight-bold  txt">Familia de Productos</h4>
@@ -32,7 +29,7 @@
                         <tr *ngFor="let product of fam_Product">
                             <td>{{product.codigo}}</td>
                             <td>{{product.nombre}}</td>
-                            <td>{{product.activo}}</td>
+                            <td> <input Class="form-check-input" type="checkbox" [checked]="product.activo" id="flexCheckChecked"  disabled> </td>
                             <td>{{product.fechaCreacion}}</td>
                             <td>
                                 <button (click)="editProduct(product.idFamilia)" type="button" class="btn btn-primary btn-sm mx-3" >
@@ -93,15 +90,23 @@
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <button  (click)="btnGuardar()" class="btn btn-primary btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </span>
-                            <span class="text"> Guardar Familia Producto</span>
-                        </button>
-                    </div>
+                    <div >
+                        <div class="from-row center">
+                            <button  (click)="btnGuardar()" class="btn btn-primary btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </span>
+                                <span class="text"> Guardar Familia Producto</span>
+                            </button>  
+                            <button  (click)="getBtn()" class="btn btn-danger btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fa-solid fa-backward"></i>
+                                </span>
+                                <span class="text"> Regresar Familia Producto</span>
+                            </button>  
 
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -112,4 +117,3 @@
 </div>
 
 
-<!-- /.container-fluid -->

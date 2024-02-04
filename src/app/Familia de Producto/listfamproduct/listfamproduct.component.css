@@ -1,3 +1,12 @@
 .txt{
     color: black;
 }
+
+.center{
+    display: flex;
+    justify-content: center;
+  
+}
+.center button{
+    margin:2%;
+}

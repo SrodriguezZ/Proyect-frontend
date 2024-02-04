@@ -1,11 +1,11 @@
-<div *ngIf="!centinelaLogin">
+<div *ngIf="centinelaLogin">
 
   <app-authlogin></app-authlogin>
 
 </div>
 
-
-<div *ngIf="cuerpo">
+<!--Centinela-->
+<div *ngIf="!cuerpo">
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" >Gestión de Productos</a>
@@ -56,7 +56,7 @@
                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" [routerLink]="'/postproduct'">Agregar Producto </a>
-                                <a class="nav-link" >Lista Producto</a>
+                                <a class="nav-link" routerLink="/listProductos">Lista Producto</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -66,7 +66,7 @@
                         <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" [routerLink]="'/familiaproductos'">Agregar F_Producto</a>
-                                <a class="nav-link" [routerLink]="'/listProduct'" >Lista F_Producto</a>
+                                <a class="nav-link" [routerLink]="'/listFamiliaProductos'" >Lista F_Producto</a>
         
                             </nav>
                         </div>

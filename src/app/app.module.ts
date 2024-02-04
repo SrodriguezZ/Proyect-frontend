@@ -12,9 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { PostproductComponent } from './components/productos/postproduct/postproduct.component';
-import { PruebasComponent } from './components/pruebas/pruebas.component';
 import { FamproductosComponent } from './Familia de Producto/famproductos/famproductos.component';
 import { ListfamproductComponent } from './Familia de Producto/listfamproduct/listfamproduct.component';
+import { ListProductosComponent } from './components/productos/list-productos/list-productos.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +26,9 @@ import { ListfamproductComponent } from './Familia de Producto/listfamproduct/li
     AuthregisterComponent,
     HomeComponent,
     PostproductComponent,
-    PruebasComponent,
     FamproductosComponent,
-    ListfamproductComponent
+    ListfamproductComponent,
+    ListProductosComponent
   ],
   imports: [
     BrowserModule,
