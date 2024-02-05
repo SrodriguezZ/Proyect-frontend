@@ -1,0 +1,23 @@
+.container-width{
+    max-width: 90%;
+}
+.txt{
+    
+    color: blue;
+}
+
+.btn-busc{
+    margin-left: 2%;
+}
+
+.cabecera-azul {
+    background-color: blue; /* Puedes ajustar el color según tus preferencias */
+    color: white; /* Puedes ajustar el color del texto según tus preferencias */
+}
+.card-tot{
+    max-width: 40%;
+    margin-top: 2%;
+}
+.card-det{
+    margin-top: 2%;
+}

@@ -15,6 +15,8 @@ import { PostproductComponent } from './components/productos/postproduct/postpro
 import { FamproductosComponent } from './Familia de Producto/famproductos/famproductos.component';
 import { ListfamproductComponent } from './Familia de Producto/listfamproduct/listfamproduct.component';
 import { ListProductosComponent } from './components/productos/list-productos/list-productos.component';
+import { FacturacionComponent } from './components/facturacion/facturacion/facturacion.component';
+import { ListFactComponent } from './components/facturacion/list-fact/list-fact.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ListProductosComponent } from './components/productos/list-productos/li
     PostproductComponent,
     FamproductosComponent,
     ListfamproductComponent,
-    ListProductosComponent
+    ListProductosComponent,
+    FacturacionComponent,
+    ListFactComponent
   ],
   imports: [
     BrowserModule,

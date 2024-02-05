@@ -7,6 +7,8 @@ import { PostproductComponent } from './components/productos/postproduct/postpro
 import { FamproductosComponent } from './Familia de Producto/famproductos/famproductos.component';
 import { ListfamproductComponent } from './Familia de Producto/listfamproduct/listfamproduct.component';
 import { ListProductosComponent } from './components/productos/list-productos/list-productos.component';
+import { FacturacionComponent } from './components/facturacion/facturacion/facturacion.component';
+import { ListFactComponent } from './components/facturacion/list-fact/list-fact.component';
 
 const routes: Routes = [
   {
@@ -23,8 +25,8 @@ const routes: Routes = [
   {
     path:'familiaproductos',
     component:FamproductosComponent
-  },{
-
+  },
+  {
     path:'postproduct',
     component:PostproductComponent
   },
@@ -33,8 +35,12 @@ const routes: Routes = [
     component:ListfamproductComponent
   },
   {
-    path:'listProductos',
-    component:ListProductosComponent
+    path:'listFact',
+    component:ListFactComponent
+  },
+  {
+    path:'facturacion',
+    component:FacturacionComponent
   }
 ];
 
