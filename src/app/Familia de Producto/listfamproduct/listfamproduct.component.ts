@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FamProductoService } from '../../services/servifamProduct/fam-producto.service';
-import { FamProducto } from '../../Class/FamProducto';
+import { FamProducto } from '../../Interface/FamProducto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

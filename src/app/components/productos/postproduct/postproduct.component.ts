@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FamProducto } from '../../../Class/FamProducto';
+import { FamProducto } from '../../../Interface/FamProducto';
 import { FamProductoService } from '../../../services/servifamProduct/fam-producto.service';
+import { ProductService } from '../../../services/productos/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-postproduct',
@@ -9,7 +11,7 @@ import { FamProductoService } from '../../../services/servifamProduct/fam-produc
   styleUrl: './postproduct.component.css'
 })
 export class PostproductComponent implements OnInit{
-  constructor(private _formBuilder:FormBuilder, private _productFamily:FamProductoService){}
+  constructor(private _formBuilder:FormBuilder, private _productFamily:FamProductoService, private _postproduct:ProductService, private _router:Router){}
   formProducto:FormGroup;
   ProductFamily:FamProducto[];
   fecha:Date = new Date();
@@ -30,7 +32,7 @@ export class PostproductComponent implements OnInit{
       stock:['',[Validators.pattern('^[0-9]+$'),Validators.required]],
       fechaCreacion:[this.fecha.toISOString().slice(0,10)],
       activo:[true],
-      familia_productos:['',Validators.required]
+      idFamilia:['',Validators.required]
     })
   }
 
@@ -40,10 +42,20 @@ export class PostproductComponent implements OnInit{
 
   btnGuardar(){
    if(this.formProducto.valid){
-    const getfamily = this.formProducto.get('familia_productos')
+    const getid_product_family = this.formProducto.get('idFamilia')
+    this._postproduct.postProduct(this.formProducto.value).subscribe({
+      next:(()=>{
+        console.log('Envio ok'),
+        this._router.navigate(['/home'])
+      }),
+      error:((errorDato)=>{console.log(errorDato)})
+    })
+
     console.log(this.formProducto.value)
-    console.log('Selector:' + getfamily?.value)
-   }else{
+    console.log('Selector:' + getid_product_family?.value)
+   
+  }else{
+    //validaores
     console.log('No se cumplio el formato')
     Object.keys(this.formProducto.controls).forEach((controlName) => {
       const control = this.formProducto.get(controlName);

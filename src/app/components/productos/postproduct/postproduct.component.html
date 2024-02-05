@@ -53,7 +53,7 @@
                     <div class="mb-3 row">
                         <label for="familiaProducto" class="col-form-label col-sm-4">Familia Producto:</label>
                         <div class="col-sm-8">
-                            <select  formControlName="familia_productos" class="form-select" id="familiaProducto">
+                            <select  formControlName="idFamilia" class="form-select" id="familiaProducto">
                                 <option *ngFor="let prod_family of ProductFamily" [value]="prod_family.idFamilia">  ID: {{prod_family.idFamilia}} PRODUCTO: {{prod_family.nombre}}</option>
                             </select>
                         </div>
