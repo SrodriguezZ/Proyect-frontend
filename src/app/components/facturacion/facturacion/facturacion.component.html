@@ -1,8 +1,8 @@
 <!-- Topbar Search -->
-<form>
-    <div class="container  mt-4">
+<div   >
+    <div class="container  mt-4 ">
 
-        <div class="card border-0 shadow-lg mx-auto my-4 container-width">
+        <div class=" card border-0 shadow-lg mx-auto my-4 container-width">
 
             <!-- Nested Row within Card Body -->
             <div class="row">
@@ -53,10 +53,16 @@
                                     <input formControlName="nombre" type="text" class="form-control form-control-user"
                                         id="nombre" placeholder="Escriba una letra o palabra, después seleccione el producto">
                                 </div>
-                                <button 
+                                <button class="overlay" (click)="mostraModal()"
+                            
                                     class="col-form-label col-sm-4 btn btn-primary btn-icon-split btn-busc">
                                     <i class="fa-solid fa-magnifying-glass"></i> Buscar en el listado de productos
                                 </button>
+                                <app-cuadroproductos 
+                                *ngIf="mostrarTabla_" 
+                                (cerrarModalEvent)="cerrarModal()" 
+                                [prod_fami_query]="prod_fami_query"
+                                (aggItem)="agregarItem($event)"></app-cuadroproductos>
                             </div>
                             <div class="container-fluid" >
                                 <br>
@@ -183,4 +189,4 @@
         </div>
 
     </div>
-</form>
+</div>

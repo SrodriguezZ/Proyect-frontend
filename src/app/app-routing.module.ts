@@ -9,6 +9,7 @@ import { ListfamproductComponent } from './Familia de Producto/listfamproduct/li
 import { ListProductosComponent } from './components/productos/list-productos/list-productos.component';
 import { FacturacionComponent } from './components/facturacion/facturacion/facturacion.component';
 import { ListFactComponent } from './components/facturacion/list-fact/list-fact.component';
+import { CuadroproductosComponent } from './components/facturacion/cuadroproductos/cuadroproductos.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,9 @@ const routes: Routes = [
   {
     path:'facturacion',
     component:FacturacionComponent
+  },{
+    path:'cuadroemergente',
+    component:CuadroproductosComponent
   }
 ];
 
