@@ -56,7 +56,7 @@
                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" [routerLink]="'/postproduct'">Agregar Producto </a>
-                                <a class="nav-link" routerLink="/listProductos">Lista Producto</a>
+                                <a class="nav-link" [routerLink]="'/listProductos'">Lista Producto</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -82,7 +82,8 @@
                       <nav class="sb-sidenav-menu-nested nav">
                           <a class="nav-link" [routerLink]="'/facturacion'">Facturación</a>
                           <a class="nav-link" [routerLink]="'/listFact'">List Factura</a>
-                      </nav>
+                          <a class="nav-link" [routerLink]="'/fact'">fact</a>
+                        </nav>
                   </div>
                   
               </div>

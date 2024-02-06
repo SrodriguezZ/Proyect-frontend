@@ -10,6 +10,7 @@ import { ListProductosComponent } from './components/productos/list-productos/li
 import { FacturacionComponent } from './components/facturacion/facturacion/facturacion.component';
 import { ListFactComponent } from './components/facturacion/list-fact/list-fact.component';
 import { CuadroproductosComponent } from './components/facturacion/cuadroproductos/cuadroproductos.component';
+import { FactComponent } from './components/facturacion/fact/fact.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,13 @@ const routes: Routes = [
   },{
     path:'cuadroemergente',
     component:CuadroproductosComponent
+  },{
+    path:'listProductos',
+    component:ListProductosComponent
+  },
+  {
+    path:'fact',
+    component:FactComponent
   }
 ];
 

@@ -1,3 +1,4 @@
+<p>fact works!</p>
 <!-- Topbar Search -->
 <div   >
     <div class="container  mt-4 ">
@@ -19,22 +20,22 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="codigo" class="form-label">N° Factura:</label>
-                                    <input formControlName="codigo" type="text" class="form-control form-control-user"
+                                    <input  type="text" class="form-control form-control-user"
                                         id="codigo" placeholder="Código" readonly>
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Ruc:</label>
-                                    <input formControlName="nombre" type="number" class="form-control form-control-user"
+                                    <input  type="number" class="form-control form-control-user"
                                         id="nombre" placeholder="Ingrese su ruc">
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Razón social</label>
-                                    <input formControlName="nombre" type="text" class="form-control form-control-user"
+                                    <input  type="text" class="form-control form-control-user"
                                         id="nombre" placeholder="Ingrese razón social">
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Fecha:</label>
-                                    <input formControlName="nombre" type="date" class="form-control form-control-user"
+                                    <input  type="date" class="form-control form-control-user"
                                         id="nombre" placeholder="Nombre">
                                 </div>
                             </div>
@@ -50,19 +51,15 @@
                                 <label for="familiaProducto" class="col-form-label col-sm-2">Codigo/Descripción:
                                 </label>
                                 <div class="col-sm-5">
-                                    <input [(ngModel)]="inputBuscar" type="text" class="form-control form-control-user"
+                                    <input  [(ngModel)]="inputSearch" type="text" class="form-control form-control-user"
                                         id="nombre" placeholder="Escriba una letra o palabra, después seleccione el producto">
                                 </div>
-                                <button class="overlay" (click)="mostraModal()"
+                                <button (click)="activar()" class="overlay" 
                             
                                     class="col-form-label col-sm-4 btn btn-primary btn-icon-split btn-busc">
                                     <i class="fa-solid fa-magnifying-glass"></i> Buscar en el listado de productos
                                 </button>
-                                <app-cuadroproductos 
-                                *ngIf="mostrarTabla_" 
-                                (cerrarModalEvent)="cerrarModal()" 
-                                [prod_fami_query]="prod_fami_query"
-                                (aggItem)="agregarItem($event)"></app-cuadroproductos>
+                                
                             </div>
                             <div class="container-fluid" >
                                 <br>
@@ -86,12 +83,12 @@
                                                 </thead>
                                                
                                                 <tbody>
-                                                    <tr >
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                    <tr *ngFor="let product of products">
+                                                        <td>{{product.idProducto}}</td>
+                                                        <td>{{product.codigo}}</td>
+                                                        <td>{{product.nombre}}</td>
+                                                        <td>{{product.precio}}</td>
+                                                        <td>{{product.stock}}</td>
                                                         <td></td>
                                                         <td>
                                                             <button  type="button" class="btn btn-danger btn-sm mx-2">
@@ -120,7 +117,7 @@
                                         <label for="familiaProducto" class="col-form-label col-sm-3">Ivg
                                         </label>
                                         <div class="col-sm-5">
-                                            <input formControlName="nombre" type="text" class="form-control form-control-user" id="nombre" placeholder="">
+                                            <input  type="text" class="form-control form-control-user" id="nombre" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -136,57 +133,68 @@
                                         <label for="familiaProducto" class="col-form-label col-sm-3">Ivg
                                         </label>
                                         <div class="col-sm-5">
-                                            <input formControlName="nombre" type="text" class="form-control form-control-user" id="nombre" placeholder="">
+                                            <input type="text" class="form-control form-control-user" id="nombre" placeholder="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="mb-3">
-                        <label for="precio" class="form-label">Precio:</label>
-                        <input formControlName="precio" type="text" class="form-control form-control-user" id="precio"
-                            placeholder="Precio">
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="stock" class="form-label">Stock:</label>
-                            <input formControlName="stock" type="number" class="form-control form-control-user"
-                                id="stock" placeholder="Stock">
-                        </div>
-                        <div class="col">
-                            <label for="fechaCreacion" class="form-label">Fecha Creación:</label>
-                            <input formControlName="fechaCreacion" class="form-control form-control-user"
-                                id="fechaCreacion" placeholder="Fecha Creación" readonly>
-                        </div>
-                    </div>
-
-
-                    <div class="mb-3 row">
-                        <label for="familiaProducto" class="col-form-label col-sm-2">Familia Producto:</label>
-                        <div class="col-sm-3">
-                            <select formControlName="idFamilia" class="form-select" id="familiaProducto">
-                                <option>1</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button class="btn btn-primary btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fa-brands fa-product-hunt"></i>
-                            </span>
-                            <span class="text"> Guardar Producto</span>
-                        </button>
-                    </div>
-
                 </div>
 
             </div>
         </div>
 
     </div>
+</div>
+
+<div *ngIf="centinela">
+    <div class="card modal tam">
+        <div class="container-fluid" >
+            <br>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold  txt"><i class="fa-solid fa-cart-shopping"></i>Productos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>IdItem</th>
+                                    <th>Codigo de producto</th>
+                                    <th>Nombre de producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                           
+                            <tbody>
+                                <tr *ngFor="let product of prod_fami_query">
+                                    <td>{{product.idProducto}}</td>
+                                <td>{{product.codigoProducto}}</td>
+                                <td>{{product.nombreProducto}}</td>
+                                <td>{{product.precio}}</td>
+                                <td>{{product.stock}}</td>
+                                    <td>
+                                        <button (click)="ventProductos(product.idProducto)" type="button" class="btn btn-primary btn-sm mx-2">
+                                            <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button   (click)="cerrarCentinela()" type="button" class="btn btn-danger btn-sm mx-2">
+            <i class="fa-solid fa-door-open"></i> Cerrar
+    </button>
+          
+        
+      </div>
 </div>

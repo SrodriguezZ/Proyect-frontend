@@ -19,7 +19,16 @@ export class ProductService {
 
   //Post
   postProduct(product:Product):Observable<Product>{
-    return this._http.post<Product>(environment.urlProduct,product);
+    return this._http.post<Product>(environment.urlProduct,product).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //GetId
+  getIdProduct(id:number):Observable<Product>{
+    return this._http.get<Product>(environment.urlProduct+`/${id}`).pipe(
+      catchError(this.handleError)
+    )
   }
 
   handleError(error:HttpErrorResponse){

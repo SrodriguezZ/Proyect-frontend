@@ -18,6 +18,7 @@ import { ListProductosComponent } from './components/productos/list-productos/li
 import { FacturacionComponent } from './components/facturacion/facturacion/facturacion.component';
 import { ListFactComponent } from './components/facturacion/list-fact/list-fact.component';
 import { CuadroproductosComponent } from './components/facturacion/cuadroproductos/cuadroproductos.component';
+import { FactComponent } from './components/facturacion/fact/fact.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CuadroproductosComponent } from './components/facturacion/cuadroproduct
     ListProductosComponent,
     FacturacionComponent,
     ListFactComponent,
-    CuadroproductosComponent
+    CuadroproductosComponent,
+    FactComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { CuadroproductosComponent } from './components/facturacion/cuadroproduct
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
