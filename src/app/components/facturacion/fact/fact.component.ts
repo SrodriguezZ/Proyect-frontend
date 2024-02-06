@@ -17,15 +17,20 @@ export class FactComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
+  //Variable
   centinela: boolean = false;
   inputSearch: string;
-  prod_fami_query: QueryProductFamily[];
   idVentProduct: number;
+  //Fin variable
+  //[]
+  prod_fami_query: QueryProductFamily[];
   products: Product[] = [];
   cantidad: number[] = [];
   subtotal: number[] = [];
-  activar() {
+  // fin []
+  //activar ventana producto
+  //Vent Product
+  openVent() {
     this.centinela = true;
     this.serviceQueryProd_Fam.getallProductFamily(this.inputSearch).subscribe({
       next: (queryProduct) => {
@@ -37,9 +42,11 @@ export class FactComponent implements OnInit {
       },
     });
   }
-  cerrarCentinela() {
+  closeVent() {
     this.centinela = false;
   }
+//Fin Product
+
 
   ventProductos(id: number) {
     this.idVentProduct = id;
@@ -68,7 +75,6 @@ export class FactComponent implements OnInit {
 
   //Math Prec*Cant
  
-
   actualizarSubtotal(): void {
     this.subtotal = this.cantidad.map(
       (cantidad, index) => cantidad * this.products[index].precio
