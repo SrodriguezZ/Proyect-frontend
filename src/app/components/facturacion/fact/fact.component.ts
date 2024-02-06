@@ -10,6 +10,7 @@ import { Product } from '../../../Interface/Product';
   styleUrl: './fact.component.css',
 })
 export class FactComponent implements OnInit {
+
   
   constructor(
     private serviceQueryProd_Fam: QueryftProService,
@@ -84,4 +85,11 @@ export class FactComponent implements OnInit {
   calcularTotal(): number {
     return this.subtotal.reduce((total, subtotal) => total + subtotal, 0);
   }
+  //Eliminar Product - ArrayCant - ArraySub
+  deleteProduct(index: number) {
+    this.products.splice(index,1);
+    this.cantidad.splice(index,1);
+    this.subtotal.splice(index,1);
+    console.log('Suma Total: ',this.calcularTotal())
+    }
 }
