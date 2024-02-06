@@ -1,6 +1,6 @@
 <p>fact works!</p>
 <!-- Topbar Search -->
-<div   >
+<div>
     <div class="container  mt-4 ">
 
         <div class=" card border-0 shadow-lg mx-auto my-4 container-width">
@@ -20,23 +20,23 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="codigo" class="form-label">N° Factura:</label>
-                                    <input  type="text" class="form-control form-control-user"
-                                        id="codigo" placeholder="Código" readonly>
+                                    <input type="text" class="form-control form-control-user" id="codigo"
+                                        placeholder="Código" readonly>
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Ruc:</label>
-                                    <input  type="number" class="form-control form-control-user"
-                                        id="nombre" placeholder="Ingrese su ruc">
+                                    <input type="number" class="form-control form-control-user" id="nombre"
+                                        placeholder="Ingrese su ruc">
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Razón social</label>
-                                    <input  type="text" class="form-control form-control-user"
-                                        id="nombre" placeholder="Ingrese razón social">
+                                    <input type="text" class="form-control form-control-user" id="nombre"
+                                        placeholder="Ingrese razón social">
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Fecha:</label>
-                                    <input  type="date" class="form-control form-control-user"
-                                        id="nombre" placeholder="Nombre">
+                                    <input type="date" class="form-control form-control-user" id="nombre"
+                                        placeholder="Nombre">
                                 </div>
                             </div>
                         </div>
@@ -51,25 +51,27 @@
                                 <label for="familiaProducto" class="col-form-label col-sm-2">Codigo/Descripción:
                                 </label>
                                 <div class="col-sm-5">
-                                    <input  [(ngModel)]="inputSearch" type="text" class="form-control form-control-user"
-                                        id="nombre" placeholder="Escriba una letra o palabra, después seleccione el producto">
+                                    <input [(ngModel)]="inputSearch" type="text" class="form-control form-control-user"
+                                        id="nombre"
+                                        placeholder="Escriba una letra o palabra, después seleccione el producto">
                                 </div>
-                                <button (click)="activar()" class="overlay" 
-                            
+                                <button (click)="activar()" class="overlay"
                                     class="col-form-label col-sm-4 btn btn-primary btn-icon-split btn-busc">
                                     <i class="fa-solid fa-magnifying-glass"></i> Buscar en el listado de productos
                                 </button>
-                                
+
                             </div>
-                            <div class="container-fluid" >
+                            <div class="container-fluid">
                                 <br>
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold  txt"><i class="fa-solid fa-cart-shopping"></i>Productos</h6>
+                                        <h6 class="m-0 font-weight-bold  txt"><i
+                                                class="fa-solid fa-cart-shopping"></i>Productos</h6>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                            <table class="table table-bordered text-center" id="dataTable" width="100%"
+                                                cellspacing="0">
                                                 <thead>
                                                     <tr>
                                                         <th>IdItem</th>
@@ -81,59 +83,63 @@
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>
-                                               
+
                                                 <tbody>
-                                                    <tr *ngFor="let product of products">
+                                                    <tr *ngFor="let product of products; let i =index">
                                                         <td>{{product.idProducto}}</td>
                                                         <td>{{product.codigo}}</td>
                                                         <td>{{product.nombre}}</td>
                                                         <td>{{product.precio}}</td>
-                                                        <td>{{product.stock}}</td>
-                                                        <td></td>
+                                                        <td><input value="1" type="number" class="form-control form-control-user"
+                                                                placeholder="Cantidad" [(ngModel)]="cantidad[i]"
+                                                                (input)="actualizarSubtotal()"></td>
+                                                        <td>{{ subtotal[i] }}</td>
                                                         <td>
-                                                            <button  type="button" class="btn btn-danger btn-sm mx-2">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </td>
+                                                            <button type="button" class="btn btn-danger btn-sm mx-2">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
                                                     </tr>
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 
                     <div class="row">
                         <!-- Primer card (izquierda) -->
                         <div class="col-md-6 col-lg-6 mb-4">
-                            <div class="card card-tot">                       
+                            <div class="card card-tot">
                                 <div class="card-body ">
                                     <h5 class="txt"><i class="fa-solid fa-money-bill"></i> Totales</h5>
                                     <div class="row mb-3">
                                         <label for="familiaProducto" class="col-form-label col-sm-3">Ivg
                                         </label>
                                         <div class="col-sm-5">
-                                            <input  type="text" class="form-control form-control-user" id="nombre" placeholder="">
+                                            <input type="text" class="form-control form-control-user" id="nombre"
+                                                placeholder="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+
                         <!-- Segundo card (derecha) -->
                         <div class="col-md-12 col-lg-6 mb-4">
-                            <div class="card card-tot">                       
+                            <div class="card card-tot">
                                 <div class="card-body ">
                                     <h5 class="txt"><i class="fa-solid fa-money-bill"></i> Totales</h5>
                                     <div class="row mb-3">
                                         <label for="familiaProducto" class="col-form-label col-sm-3">Ivg
                                         </label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control form-control-user" id="nombre" placeholder="">
+                                            <input type="text" class="form-control form-control-user" id="nombre"
+                                                placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +156,7 @@
 
 <div *ngIf="centinela">
     <div class="card modal tam">
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <br>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -166,35 +172,36 @@
                                     <th>Nombre de producto</th>
                                     <th>Precio</th>
                                     <th>Cantidad</th>
-                                    
+
                                     <th>Acción</th>
                                 </tr>
                             </thead>
-                           
+
                             <tbody>
                                 <tr *ngFor="let product of prod_fami_query">
                                     <td>{{product.idProducto}}</td>
-                                <td>{{product.codigoProducto}}</td>
-                                <td>{{product.nombreProducto}}</td>
-                                <td>{{product.precio}}</td>
-                                <td>{{product.stock}}</td>
+                                    <td>{{product.codigoProducto}}</td>
+                                    <td>{{product.nombreProducto}}</td>
+                                    <td>{{product.precio}}</td>
+                                    <td>{{product.stock}}</td>
                                     <td>
-                                        <button (click)="ventProductos(product.idProducto)" type="button" class="btn btn-primary btn-sm mx-2">
+                                        <button (click)="ventProductos(product.idProducto)" type="button"
+                                            class="btn btn-primary btn-sm mx-2">
                                             <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </td>
+                                        </button>
+                                    </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <button   (click)="cerrarCentinela()" type="button" class="btn btn-danger btn-sm mx-2">
+        <button (click)="cerrarCentinela()" type="button" class="btn btn-danger btn-sm mx-2">
             <i class="fa-solid fa-door-open"></i> Cerrar
-    </button>
-          
-        
-      </div>
+        </button>
+
+
+    </div>
 </div>

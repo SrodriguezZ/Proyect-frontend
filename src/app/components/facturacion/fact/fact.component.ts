@@ -7,46 +7,75 @@ import { Product } from '../../../Interface/Product';
 @Component({
   selector: 'app-fact',
   templateUrl: './fact.component.html',
-  styleUrl: './fact.component.css'
+  styleUrl: './fact.component.css',
 })
-export class FactComponent implements OnInit{
-constructor(private serviceQueryProd_Fam:QueryftProService, private productService:ProductService){
-  this.products =[];
-}
+export class FactComponent implements OnInit {
+  
+  constructor(
+    private serviceQueryProd_Fam: QueryftProService,
+    private productService: ProductService
+  ) {}
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {}
+
+  centinela: boolean = false;
+  inputSearch: string;
+  prod_fami_query: QueryProductFamily[];
+  idVentProduct: number;
+  products: Product[] = [];
+  cantidad: number[] = [];
+  subtotal: number[] = [];
+  activar() {
+    this.centinela = true;
+    this.serviceQueryProd_Fam.getallProductFamily(this.inputSearch).subscribe({
+      next: (queryProduct) => {
+        this.prod_fami_query = queryProduct;
+        console.log(this.prod_fami_query);
+      },
+      error: (errorProduct) => {
+        console.log(errorProduct);
+      },
+    });
+  }
+  cerrarCentinela() {
+    this.centinela = false;
   }
 
+  ventProductos(id: number) {
+    this.idVentProduct = id;
+    console.log('Id product: ' + this.idVentProduct);
+    this.productService.getIdProduct(id).subscribe({
+      next: (getProduct) => {
+        this.products.push(getProduct), (this.centinela = false);
+        console.log('Productos=>', this.products);
+        //Validacion de datos 
+       
+        if(!this.cantidad.length && !this.subtotal.length){
+          this.cantidad = new Array(this.products.length).fill(0);
+          this.subtotal = new Array(this.products.length).fill(0);
+          this.cantidad[0] = 1
+        }else{
+          this.cantidad.push(1)
+          this.subtotal.push(0)
+        }
+      
+      },
+      error: (error) => {
+        console.log(error), console.log(this.products);
+      },
+    });
+  }
 
-centinela: boolean = false;
-inputSearch:string;
-prod_fami_query: QueryProductFamily[];
-idVentProduct:number;
-products : Product[];
-activar(){
-  this.centinela = true;
-  this.serviceQueryProd_Fam.getallProductFamily(this.inputSearch).subscribe({
-    next:((queryProduct)=>{
-      this.prod_fami_query = queryProduct;
-      console.log(this.prod_fami_query)
-    }),error:((errorProduct)=>{console.log(errorProduct)})
-  })
-}
-cerrarCentinela(){
-  this.centinela = false;
-}
+  //Math Prec*Cant
+ 
 
-ventProductos(id:number){
-  this.idVentProduct=id
-  console.log('Id product: ' + this.idVentProduct)
-  this.productService.getIdProduct(id).subscribe({
-    next:((getProduct)=>{
-      this.products.push(getProduct),
-      this.centinela=false;
-      console.log('Productos=>',this.products)
-    }),error:((error)=>{console.log(error), console.log(this.products)})
-  })
-}
+  actualizarSubtotal(): void {
+    this.subtotal = this.cantidad.map(
+      (cantidad, index) => cantidad * this.products[index].precio
+    );
+  }
 
+  calcularTotal(): number {
+    return this.subtotal.reduce((total, subtotal) => total + subtotal, 0);
+  }
 }
