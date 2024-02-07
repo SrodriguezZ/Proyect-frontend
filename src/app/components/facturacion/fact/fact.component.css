@@ -52,3 +52,10 @@
     max-height: 40%; 
     max-width: 60%;
 }
+.Tb-Cal{
+    max-width: 60%;
+    
+}
+.max-card {
+    max-width: 300px; /* Puedes ajustar este valor según tu preferencia */
+}
