@@ -92,7 +92,7 @@
                                                         <td><input value="1" min="1" type="number"
                                                                 class="form-control form-control-user"
                                                                 placeholder="Cantidad" [(ngModel)]="cantidad[i]"
-                                                                (input)="actualizarSubtotal()"></td>
+                                                                (input)="actualizarSubtotal(i)"></td>
                                                         <td>{{ subtotal[i] }}</td>
                                                         <td>
                                                             <button (click)="deleteProduct(i)" type="button"

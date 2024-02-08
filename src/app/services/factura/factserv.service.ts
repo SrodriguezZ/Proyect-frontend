@@ -6,6 +6,7 @@ import { InvoiceNumberSequence } from '../../Interface/InvoiceNumberSequence';
 import { environment } from '../../environment/environment';
 import { InvoiceHeader } from '../../Interface/InvoiceHeader';
 import { InvoiceDetail } from '../../Interface/InvoiceDetail';
+import { UpdateStock } from '../../Interface/UpdateStock';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,12 @@ export class FactservService {
     )
   }
 
+  //restStockProduct  }
+  updateStockProduct(id:number,stock:number){
+    return this._http.put(environment.urlProduct+`/update/stock/${id}/${stock}`,{}).pipe(
+      catchError(this.headerError)
+    )
+  }
 
 
   headerError(error:HttpErrorResponse){

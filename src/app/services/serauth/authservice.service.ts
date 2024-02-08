@@ -10,35 +10,39 @@ import { environment } from '../../environment/environment';
 export class AuthserviceService {
   //BehaviorSubject
   userLongOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
+  //PostLogin
   authLogin(login: Login): Observable<string> {
-    return this.http
+    return this._http
       .post(environment.urlAuth + `/ingreso`, login, { responseType: 'text' })
       .pipe(
         tap(() => {
           this.userLongOn.next(true);
-        }),
-        catchError(this.handleError)
+        }), 
       );
   }
-
-
   //loginOff
-  loginoff(){
-   this.userLongOn.next(false);
-    
+  loginoff() {
+    this.userLongOn.next(false);
   }
 
+  //PostRegister
+  postRegistUser(user:Login){
+    return this._http.post<Login>(environment.urlbackend+`usuario`,user).pipe(
+      catchError(this.headerError)
+    )
+  }
+
+
   //Control de  Errores
-  public handleError(error: HttpErrorResponse): Observable<string> {
-    if (error.status === 401) {
-      return throwError('Error Credencial Usuario o contraseña incorrecta');
-    } else if (error.status === 403) {
-      return throwError('Usuario bloqueado o error de autorización');
-    } else {
-      return throwError('Otro error desde el backend');
+  public headerError(error:HttpErrorResponse) {
+    if(error.status === 0){
+      console.log('Error desde el Frontend')
+    }else{
+      console.log('Error desde el backend')
     }
+    return throwError (()=>new Error('Vuelva Intentar'))
   }
 
   //Obtener el valor de mi BehaviorSUbject
