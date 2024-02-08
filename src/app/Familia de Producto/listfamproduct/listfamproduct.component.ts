@@ -77,7 +77,7 @@ export class ListfamproductComponent implements OnInit{
   getBtn(){
     this.board = true;
     this.editProduc = false;
-    this.ngOnInit;
+    this.ngOnInit();
   }
 
   

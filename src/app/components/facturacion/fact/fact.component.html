@@ -24,18 +24,18 @@
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Ruc:</label>
-                                    <input type="text" class="form-control form-control-user" id="nombre"
+                                    <input [(ngModel)]="ruc" type="text" class="form-control form-control-user" id="nombre"
                                         placeholder="Ingrese su ruc">
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Razón social</label>
-                                    <input type="text" class="form-control form-control-user" id="nombre"
+                                    <input [(ngModel)]="razonSocial" type="text" class="form-control form-control-user" id="nombre"
                                         placeholder="Ingrese razón social">
                                 </div>
                                 <div class="col">
                                     <label for="nombre" class="form-label">Fecha:</label>
-                                    <input type="date" class="form-control form-control-user" id="nombre"
-                                        placeholder="Nombre">
+                                    <input [(ngModel)]="fecha" type="text" class="form-control form-control-user" id="nombre"
+                                        placeholder="dd/mm/aaa">
                                 </div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                                 <div class="card-body ">
                                     <h5 class="txt"><i class="fa-solid fa-file"></i> Acciones</h5>
                                     <div class="form-row mb-3">
-                                        <button  class="overlay"
+                                        <button (click)="facturarPost()" class="overlay"
                                         class="col-form-label col-sm-4 btn btn-primary btn-icon-split btn-busc">
                                         <i class="fa-solid fa-floppy-disk"></i> Facturar
                                     </button>

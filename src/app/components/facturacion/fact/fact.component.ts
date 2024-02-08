@@ -5,6 +5,7 @@ import { ProductService } from '../../../services/productos/product.service';
 import { Product } from '../../../Interface/Product';
 import { FactservService } from '../../../services/factura/factserv.service';
 import { InvoiceNumberSequence } from '../../../Interface/InvoiceNumberSequence';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-fact',
@@ -17,16 +18,18 @@ export class FactComponent implements OnInit {
   constructor(
     private serviceQueryProd_Fam: QueryftProService,
     private productService: ProductService,
-    private factservice:FactservService
+    private factservice:FactservService,
+    private formBuilder:FormBuilder
   ) {}
 
   ngOnInit(): void {
-    /*this.factservice.getInvoiceNumberSequence().subscribe({
+    this.factservice.getInvoiceNumberSequence().subscribe({
       next:((numberFact)=>{
         this.numberFactura = numberFact,
       console.log('Sequence Number Fact = '+this.numberFactura.idSecuenciaNumeroFactura)}),
-        error:((errorNumber) =>{console.log('Erro number: ' , errorNumber)})
-    })*/
+      error:((errorNumber) =>{console.log('Erro number: ' , errorNumber)})
+    })
+    
   }
   //Variable
   centinela: boolean = false;
@@ -36,6 +39,11 @@ export class FactComponent implements OnInit {
   sub_Total_:number = 0;
   totalConIGV: number = 0;
   total : number = 0;
+  ruc:string = '';
+  razonSocial:string = '';
+  idFactura:number;
+  fecha:any = new Date().toISOString().slice(0,10);
+  invoiceHeader:FormGroup;
   numberFactura:InvoiceNumberSequence = {idSecuenciaNumeroFactura:0};
   //Fin variable
   //[]
@@ -43,8 +51,34 @@ export class FactComponent implements OnInit {
   products: Product[] = [];
   cantidad: number[] = [];
   subtotal: number[] = [];
-  
   // fin []
+  //Formulario
+
+  homeFormul(){
+    this.invoiceHeader = this.formBuilder.group({
+      numeroFactura:[this.numberFactura.idSecuenciaNumeroFactura],
+      ruc:[this.ruc],
+      razonSocial:[this.razonSocial],
+      subtotal:[this.sub_Total_],
+      porcentajeIgv:[0.18],
+      igv:[this.totalConIGV],
+      total:[this.total],
+      fechaCreacion:[this.fecha]
+    })
+  }
+
+  facturarPost(){
+    console.log(this.invoiceHeader.value)
+   this.factservice.postInvoiceHeader(this.invoiceHeader.value).subscribe({
+      next:((headerFactura)=>{
+        console.log('Factura Ok'),
+      this.idFactura = headerFactura.idFactura,
+    console.log("Recuperando el IDFACTURA:  " + this.idFactura)}),
+      error:((errorDato)=>{console.log(errorDato)})
+    })
+  }
+  
+  
   //activar ventana producto
   //Vent Product
   openVent() {
@@ -99,6 +133,7 @@ export class FactComponent implements OnInit {
     this.sub_Total_ = this.calcularTotal()
     this.totalConIGV = this.calcularTotal() * 0.18;
     this.total = this.sub_Total_ + this.totalConIGV
+    this.homeFormul()
   }
 
   calcularTotal() {

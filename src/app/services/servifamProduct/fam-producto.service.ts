@@ -13,40 +13,40 @@ export class FamProductoService {
   postFamProducto(famProducto: FamProducto): Observable<any> {
     return this.http
       .post(environment.urlFamilyProduct, famProducto)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.headerError));
   }
 
   //GetAll Product
   getAllProduct():Observable<FamProducto[]>{
     return this.http.get<FamProducto[]>(environment.urlFamilyProduct).pipe(
-      catchError(this.handleError)
+      catchError(this.headerError)
     )
   }
 
   //getIdProduct
   getIdProduct(id:number):Observable<FamProducto>{
     return this.http.get<FamProducto>(environment.urlFamilyProduct+`/${id}`).pipe(
-      catchError(this.handleError)
+      catchError(this.headerError)
     )
   }
   
   //updateFamProduct
   updateProduct(id:number, famProducto:FamProducto):Observable<FamProducto>{
     return this.http.patch<FamProducto>(environment.urlFamilyProduct+`/${id}`,famProducto).pipe(
-      catchError(this.handleError)
+      catchError(this.headerError)
     )
   }
 
   //DeleteFamProduct
   deleteProduct(id:number):Observable<any>{
    return this.http.delete(environment.urlFamilyProduct+`/${id}`).pipe(
-      catchError(this.handleError)
+      catchError(this.headerError)
     )
   }
 
   
 
-  handleError(error: HttpErrorResponse) {
+  headerError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.log('Se ha producido un error: ' + error.message);
     }else{

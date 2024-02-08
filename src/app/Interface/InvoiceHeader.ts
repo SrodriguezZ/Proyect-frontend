@@ -1,4 +1,5 @@
 export interface InvoiceHeader {
+    idFactura:number;
     numeroFactura:number,
     ruc:string,
     razonSocial:string,

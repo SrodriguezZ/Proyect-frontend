@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthserviceService } from '../../../services/serauth/authservice.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-authlogin',
   templateUrl: './authlogin.component.html',
@@ -28,7 +29,16 @@ export class AuthloginComponent implements OnInit{
       this.authService.authLogin(this.formularioLogin.value).subscribe({
         next:()=>{console.log('Ingreso ok')
       this.router.navigate(['/home'])},
-        error:((datoError)=>{alert(datoError)})
+        error:((datoError)=>{
+          this.authService.handleError(datoError).subscribe( alert =>{
+            Swal.fire({ // Muestra el mensaje de error utilizando Swal.fire
+              icon: 'error',
+              title: 'Error de autenticación',
+              text: alert
+            });
+          });
+          
+        })
       })
     }else{
       alert('Error en el formulario')

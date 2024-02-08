@@ -4,6 +4,7 @@ import { Product } from '../../Interface/Product';
 import { HttpClient, HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 import { InvoiceNumberSequence } from '../../Interface/InvoiceNumberSequence';
 import { environment } from '../../environment/environment';
+import { InvoiceHeader } from '../../Interface/InvoiceHeader';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,12 @@ export class FactservService {
   
   getInvoiceNumberSequence():Observable<InvoiceNumberSequence>{
     return this._http.get<InvoiceNumberSequence>(environment.urlQueryInvoiceQuerySequence).pipe(
+      catchError(this.headerError)
+    )
+  }
+
+  postInvoiceHeader(invoiceHeader:InvoiceHeader):Observable<InvoiceHeader>{
+    return this._http.post<InvoiceHeader>(environment.urlInvoiceHeader,invoiceHeader).pipe(
       catchError(this.headerError)
     )
   }
