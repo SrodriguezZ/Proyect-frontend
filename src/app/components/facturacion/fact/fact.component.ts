@@ -6,6 +6,7 @@ import { Product } from '../../../Interface/Product';
 import { FactservService } from '../../../services/factura/factserv.service';
 import { InvoiceNumberSequence } from '../../../Interface/InvoiceNumberSequence';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { InvoiceDetail } from '../../../Interface/InvoiceDetail';
 
 @Component({
   selector: 'app-fact',
@@ -13,77 +14,113 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrl: './fact.component.css',
 })
 export class FactComponent implements OnInit {
-
-  
   constructor(
-    private serviceQueryProd_Fam: QueryftProService,
+    private _serviceQueryProd_Fam: QueryftProService,
     private productService: ProductService,
-    private factservice:FactservService,
-    private formBuilder:FormBuilder
+    private _factservice: FactservService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.factservice.getInvoiceNumberSequence().subscribe({
-      next:((numberFact)=>{
-        this.numberFactura = numberFact,
-      console.log('Sequence Number Fact = '+this.numberFactura.idSecuenciaNumeroFactura)}),
-      error:((errorNumber) =>{console.log('Erro number: ' , errorNumber)})
-    })
-    
+    this._factservice.getInvoiceNumberSequence().subscribe({
+      next: (numberFact) => {
+        (this.numberFactura = numberFact),
+          console.log(
+            'Sequence Number Fact = ' +
+              this.numberFactura.idSecuenciaNumeroFactura
+          );
+      },
+      error: (errorNumber) => {
+        console.log('Erro number: ', errorNumber);
+      },
+    });
   }
   //Variable
   centinela: boolean = false;
   inputSearch: string;
   idVentProduct: number;
-  calIgv:number;
-  sub_Total_:number = 0;
+  calIgv: number;
+  sub_Total_: number = 0;
   totalConIGV: number = 0;
-  total : number = 0;
-  ruc:string = '';
-  razonSocial:string = '';
-  idFactura:number;
-  fecha:any = new Date().toISOString().slice(0,10);
-  invoiceHeader:FormGroup;
-  numberFactura:InvoiceNumberSequence = {idSecuenciaNumeroFactura:0};
+  total: number = 0;
+  ruc: string = '';
+  razonSocial: string = '';
+  idFactura: number;
+  fecha: any = new Date().toISOString().slice(0, 10);
+  invoiceHeader: FormGroup;
+  numberFactura: InvoiceNumberSequence = { idSecuenciaNumeroFactura: 0 };
   //Fin variable
   //[]
   prod_fami_query: QueryProductFamily[];
   products: Product[] = [];
+  invoiceDetail: InvoiceDetail[];
   cantidad: number[] = [];
   subtotal: number[] = [];
   // fin []
   //Formulario
 
-  homeFormul(){
+  homeFormul() {
     this.invoiceHeader = this.formBuilder.group({
-      numeroFactura:[this.numberFactura.idSecuenciaNumeroFactura],
-      ruc:[this.ruc],
-      razonSocial:[this.razonSocial],
-      subtotal:[this.sub_Total_],
-      porcentajeIgv:[0.18],
-      igv:[this.totalConIGV],
-      total:[this.total],
-      fechaCreacion:[this.fecha]
-    })
+      numeroFactura: [this.numberFactura.idSecuenciaNumeroFactura],
+      ruc: [this.ruc],
+      razonSocial: [this.razonSocial],
+      subtotal: [this.sub_Total_],
+      porcentajeIgv: [0.18],
+      igv: [this.totalConIGV],
+      total: [this.total],
+      fechaCreacion: [this.fecha],
+    });
   }
 
-  facturarPost(){
-    console.log(this.invoiceHeader.value)
-   this.factservice.postInvoiceHeader(this.invoiceHeader.value).subscribe({
-      next:((headerFactura)=>{
+  facturarPost() {
+    console.log(this.invoiceHeader.value);
+    this._factservice.postInvoiceHeader(this.invoiceHeader.value).subscribe({
+      next: (headerFactura) => {
         console.log('Factura Ok'),
-      this.idFactura = headerFactura.idFactura,
-    console.log("Recuperando el IDFACTURA:  " + this.idFactura)}),
-      error:((errorDato)=>{console.log(errorDato)})
-    })
+          (this.idFactura = headerFactura.idFactura),
+          console.log('Recuperando el IDFACTURA:  ' + this.idFactura);
+          const invoiceDetails: InvoiceDetail[] = this.addDetaiFact(this.idFactura, this.products);
+          console.log("Detalles de la factura con IdFactura con productos =>", invoiceDetails);
+          this._factservice.postInvoiceDetail(invoiceDetails).subscribe({
+            next:(response)=>{
+              console.log('Detalle con factura enviado con exito =>' + response)
+            },error:(errorDato)=>{
+              console.log('Error de factura => ' + errorDato)
+            }
+          })
+
+
+      },
+
+      error: (errorDato) => {
+        console.log(errorDato);
+      },
+    });
   }
-  
-  
+
+  addDetaiFact(idFactura: number, products: Product[]): InvoiceDetail[] {
+    const invoiceDetails: InvoiceDetail[] = [];
+    products.forEach((productos) => {
+      const invoiceDetail: InvoiceDetail = {
+        idFactura: idFactura,
+        idProducto: productos.idProducto,
+        codigoProducto: productos.codigo,
+        nombreProducto: productos.nombre,
+        precio: productos.precio,
+        cantidad: productos.stock,
+        subtotal: this.sub_Total_,
+        fechaCreacion: this.fecha,
+      };
+      invoiceDetails.push(invoiceDetail);
+    });
+    return invoiceDetails;
+  }
+
   //activar ventana producto
   //Vent Product
   openVent() {
     this.centinela = true;
-    this.serviceQueryProd_Fam.getallProductFamily(this.inputSearch).subscribe({
+    this._serviceQueryProd_Fam.getallProductFamily(this.inputSearch).subscribe({
       next: (queryProduct) => {
         this.prod_fami_query = queryProduct;
         console.log(this.prod_fami_query);
@@ -96,8 +133,7 @@ export class FactComponent implements OnInit {
   closeVent() {
     this.centinela = false;
   }
-//Fin Product
-
+  //Fin Product
 
   ventProductos(id: number) {
     this.idVentProduct = id;
@@ -106,17 +142,16 @@ export class FactComponent implements OnInit {
       next: (getProduct) => {
         this.products.push(getProduct), (this.centinela = false);
         console.log('Productos=>', this.products);
-        //Validacion de datos 
-       
-        if(!this.cantidad.length && !this.subtotal.length){
+        //Validacion de datos
+
+        if (!this.cantidad.length && !this.subtotal.length) {
           this.cantidad = new Array(this.products.length).fill(0);
           this.subtotal = new Array(this.products.length).fill(0);
-          this.cantidad[0] = 1
-        }else{
-          this.cantidad.push(1)
-          this.subtotal.push(0)
+          this.cantidad[0] = 1;
+        } else {
+          this.cantidad.push(1);
+          this.subtotal.push(0);
         }
-      
       },
       error: (error) => {
         console.log(error), console.log(this.products);
@@ -130,24 +165,22 @@ export class FactComponent implements OnInit {
     this.subtotal = this.cantidad.map(
       (cantidad, index) => cantidad * this.products[index].precio
     );
-    this.sub_Total_ = this.calcularTotal()
+    this.sub_Total_ = this.calcularTotal();
     this.totalConIGV = this.calcularTotal() * 0.18;
-    this.total = this.sub_Total_ + this.totalConIGV
-    this.homeFormul()
+    this.total = this.sub_Total_ + this.totalConIGV;
+    this.homeFormul();
   }
 
   calcularTotal() {
     return this.subtotal.reduce((total, subtotal) => total + subtotal, 0);
-    
   }
   //Eliminar Product - ArrayCant - ArraySub
   deleteProduct(index: number) {
-    this.products.splice(index,1);
-    this.cantidad.splice(index,1);
-    this.subtotal.splice(index,1);
-    console.log('Suma Total: ',this.calcularTotal())
-
-    }
+    this.products.splice(index, 1);
+    this.cantidad.splice(index, 1);
+    this.subtotal.splice(index, 1);
+    console.log('Suma Total: ', this.calcularTotal());
+  }
 
   //igv
 }

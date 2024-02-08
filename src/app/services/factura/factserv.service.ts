@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpResponseBase } from '@angular/common
 import { InvoiceNumberSequence } from '../../Interface/InvoiceNumberSequence';
 import { environment } from '../../environment/environment';
 import { InvoiceHeader } from '../../Interface/InvoiceHeader';
+import { InvoiceDetail } from '../../Interface/InvoiceDetail';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,14 @@ export class FactservService {
       catchError(this.headerError)
     )
   }
+
+  postInvoiceDetail(invoiceDetail:InvoiceDetail[]):Observable<InvoiceDetail[]>{
+    return this._http.post<InvoiceDetail[]>(environment.urlInvoiceDetail,invoiceDetail).pipe(
+      catchError(this.headerError)
+    )
+  }
+
+
 
   headerError(error:HttpErrorResponse){
     if(error.status === 0){
