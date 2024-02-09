@@ -37,9 +37,9 @@ export class FamProductoService {
     )
   }
 
-  //DeleteFamProduct
+  //DeleteFamProductFkProduct
   deleteProduct(id:number):Observable<any>{
-   return this.http.delete(environment.urlFamilyProduct+`/${id}`).pipe(
+   return this.http.delete(environment.urlFamilyProduct+`/all/${id}`).pipe(
       catchError(this.headerError)
     )
   }

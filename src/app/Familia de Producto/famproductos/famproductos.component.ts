@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FamProductoService } from '../../services/servifamProduct/fam-producto.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-famproductos',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './famproductos.component.css',
 })
 export class FamproductosComponent implements OnInit {
+
   fam_producto: FormGroup;
   fecha: Date = new Date();
   constructor(
@@ -35,13 +37,31 @@ export class FamproductosComponent implements OnInit {
   postProducto() {
     if (this.fam_producto.valid) {
       this.serviceFamProd.postFamProducto(this.fam_producto.value).subscribe({
-        next: () => {console.log('Envio Ok'),
+        next: () => {console.log('Envió Ok'),
       this.router.navigate(['/home'])},
         error:((errorDato)=>{console.log(errorDato)})
       });
+    }else{
+      const cd = this.fam_producto.get('codigo')
+      const nb = this.fam_producto.get('nombre')
+      let error = '';
+      if(cd?.invalid){
+        error += 'Por favor, ingresa un código válido.<br>'
+      }
+      if(nb?.invalid){
+        error += 'Por favor, ingresa un nombre válido.<br>'
+      }
+
+      Swal.fire({
+        icon: 'error',
+        title: 'X',
+        html: error,
+        confirmButtonColor:'#007bff'
+      });
     }
-    console.log(this.fam_producto.value);
-    console.log(this.fam_producto.get('fechaCreacion')?.value);
-    console.log(this.fam_producto.get('codigo')?.value);
   }
+
+  clear() {
+    this.iniciarForm();
+    }
 }

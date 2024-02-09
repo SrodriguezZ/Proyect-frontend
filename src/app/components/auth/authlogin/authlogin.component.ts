@@ -12,6 +12,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './authlogin.component.css',
 })
 export class AuthloginComponent implements OnInit {
+clear() {
+this.inicializarFormulario();
+}
   ngOnInit(): void {
     this.inicializarFormulario();
     this.startRegister();
@@ -46,15 +49,13 @@ export class AuthloginComponent implements OnInit {
     if (this.formularioLogin.valid) {
       this.authService.authLogin(this.formularioLogin.value).subscribe({
         next: () => {
+          this.router.navigate(['/home']);
           Swal.fire({
             position: 'center',
             icon: 'success',
             title: 'Usuario registrado con éxito',
             showConfirmButton: false,
             timer: 1000,
-          }).then(() => {
-            console.log('Ingreso ok');
-            this.router.navigate(['/home']);
           });
         },
         error: (error: HttpErrorResponse) => {
@@ -76,6 +77,7 @@ export class AuthloginComponent implements OnInit {
             icon: 'error',
             title: 'Error de autenticación',
             text: errorMessage,
+            confirmButtonColor:"#007bff"
           });
         },
       });
@@ -87,12 +89,14 @@ export class AuthloginComponent implements OnInit {
           icon: 'error',
           title: 'Oops...',
           text: 'Por favor, ingresa un nombre de usuario válido.',
+          confirmButtonColor:"#007bff"
         });
       } else if (pass?.invalid) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Por favor, ingresa una contraseña válida.',
+          confirmButtonColor:"#007bff"
         });
       }
     }
@@ -135,12 +139,14 @@ export class AuthloginComponent implements OnInit {
           icon: 'error',
           title: 'Oops...',
           text: 'Por favor, ingresa un nombre de usuario válido.',
+          confirmButtonColor:"#007bff"
         });
       } else if (passw?.invalid) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Por favor, ingresa una contraseña válida.',
+          confirmButtonColor:"#007bff"
         });
       }
     }

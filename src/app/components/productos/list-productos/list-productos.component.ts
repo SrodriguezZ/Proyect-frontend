@@ -4,6 +4,7 @@ import { Product } from '../../../Interface/Product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FamProducto } from '../../../Interface/FamProducto';
 import { FamProductoService } from '../../../services/servifamProduct/fam-producto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-productos',
@@ -11,7 +12,6 @@ import { FamProductoService } from '../../../services/servifamProduct/fam-produc
   styleUrl: './list-productos.component.css',
 })
 export class ListProductosComponent implements OnInit {
-
   //private servicelist = inject(ProductService);
   constructor(
     private _producService: ProductService,
@@ -47,7 +47,10 @@ export class ListProductosComponent implements OnInit {
 
   iniFormProducto() {
     this.formProducto = this._formBuilder.group({
-      codigo: ['',[Validators.pattern('^[a-zA-Z0-9]{1,15}$'), Validators.required]],
+      codigo: [
+        '',
+        [Validators.pattern('^[a-zA-Z0-9]{1,15}$'), Validators.required],
+      ],
       nombre: ['', [Validators.pattern('^[a-zA-Z]+$'), Validators.required]],
       precio: ['', [Validators.pattern('^[0-9]+$'), Validators.required]],
       stock: ['', [Validators.pattern('^[0-9]+$'), Validators.required]],
@@ -85,9 +88,7 @@ export class ListProductosComponent implements OnInit {
             console.log(error);
           },
         });
-    } else {
-      console.log('Formulario no valido');
-    }
+    } 
   }
 
   getBtn() {
@@ -99,8 +100,20 @@ export class ListProductosComponent implements OnInit {
   //DeleleteId
   deleteId(id: number) {
     this._producService.deleteProductId(id).subscribe({
-      next:(()=>{console.log('Id eliminado'), this.ngOnInit()}),
-      error:((errorDato)=>{console.log(errorDato)})
-    })
-    }
+      next: () => {
+        this.ngOnInit();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Producto eliminado con éxito",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        console.log('Id eliminado')
+      },
+      error: (errorDato) => {
+        console.log(errorDato);
+      },
+    });
+  }
 }

@@ -5,8 +5,10 @@ import { ProductService } from '../../../services/productos/product.service';
 import { Product } from '../../../Interface/Product';
 import { FactservService } from '../../../services/factura/factserv.service';
 import { InvoiceNumberSequence } from '../../../Interface/InvoiceNumberSequence';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvoiceDetail } from '../../../Interface/InvoiceDetail';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fact',
@@ -18,10 +20,12 @@ export class FactComponent implements OnInit {
     private _serviceQueryProd_Fam: QueryftProService,
     private productService: ProductService,
     private _factservice: FactservService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _router:Router
   ) {}
 
   ngOnInit(): void {
+    this.homeFormul()
     this._factservice.getInvoiceNumberSequence().subscribe({
       next: (numberFact) => {
         (this.numberFactura = numberFact),
@@ -61,57 +65,118 @@ export class FactComponent implements OnInit {
 
   homeFormul() {
     this.invoiceHeader = this.formBuilder.group({
-      numeroFactura: [this.numberFactura.idSecuenciaNumeroFactura],
-      ruc: [this.ruc],
-      razonSocial: [this.razonSocial],
-      subtotal: [this.sub_Total_],
-      porcentajeIgv: [0.18],
-      igv: [this.totalConIGV],
-      total: [this.total],
-      fechaCreacion: [this.fecha],
+      numeroFactura: [this.numberFactura.idSecuenciaNumeroFactura,Validators.required],
+      ruc: [this.ruc,Validators.required],
+      razonSocial: [this.razonSocial,Validators.required],
+      subtotal: [this.sub_Total_,Validators.required],
+      porcentajeIgv: [0.18,Validators.required],
+      igv: [this.totalConIGV,Validators.required],
+      total: [this.total,Validators.required],
+      fechaCreacion: [this.fecha,Validators.required],
     });
   }
 
   facturarPost() {
-    console.log(this.invoiceHeader.value);
-    this._factservice.postInvoiceHeader(this.invoiceHeader.value).subscribe({
-      next: (headerFactura) => {
-        console.log('Factura Ok'),
-          (this.idFactura = headerFactura.idFactura),
-          console.log('Recuperando el IDFACTURA:  ' + this.idFactura);
-          const invoiceDetails: InvoiceDetail[] = this.addDetaiFact(this.idFactura, this.products,this.cantidad);
-          console.log("Detalles de la factura con IdFactura con productos =>", invoiceDetails);
+    if (this.invoiceHeader.valid) {
+      console.log(this.invoiceHeader.value);
+      this._factservice.postInvoiceHeader(this.invoiceHeader.value).subscribe({
+        next: (headerFactura) => {
+          console.log('Factura Ok'),
+            (this.idFactura = headerFactura.idFactura),
+            console.log('Recuperando el IDFACTURA:  ' + this.idFactura);
+          const invoiceDetails: InvoiceDetail[] = this.addDetaiFact(
+            this.idFactura,
+            this.products,
+            this.cantidad
+          );
+          console.log(
+            'Detalles de la factura con IdFactura con productos =>',
+            invoiceDetails
+          );
           this._factservice.postInvoiceDetail(invoiceDetails).subscribe({
-            next:(response)=>{
-              console.log('Detalle con factura enviado con éxito =>' + response)
-              invoiceDetails.forEach(details =>{
-                this._factservice.updateStockProduct(details.idProducto,details.cantidad).subscribe({
-                  next:()=>{
-                    console.log('Stock Actualizado con el producto en id' + details.idProducto + details.cantidad)
-                  },error:()=>{
-                    console.log('Erro al momento de actualizar el producto con id: ' + details.idProducto + details.cantidad)
-                  }
-                })
-              })
+            next: (response) => {
+              console.log(
+                'Detalle con factura enviado con éxito =>' + response
+              );
+              invoiceDetails.forEach((details) => {
+                this._factservice
+                  .updateStockProduct(details.idProducto, details.cantidad)
+                  .subscribe({
+                    next: () => {
+                      console.log(
+                        'Stock Actualizado con el producto en id' +
+                          details.idProducto +
+                          details.cantidad
+                      );
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Factura realizado con éxito',
+                        showConfirmButton: false,
+                        timer: 1500,
+                      }).then(()=>{
+                        this._router.navigate(['home'])
+                      })
+                      
+                    },
+                    error: () => {
+                      console.log(
+                        'Erro al momento de actualizar el producto con id: ' +
+                          details.idProducto +
+                          details.cantidad
+                      );
+                    },
+                  });
+              });
+            },
+            error: (errorDato) => {
+              console.log('Error de factura => ' + errorDato);
+            },
+          });
+        },
 
-            },error:(errorDato)=>{
-              console.log('Error de factura => ' + errorDato)
-            }
-          })
+        error: (errorDato) => {
+          console.log(errorDato);
+        },
+      });
+    } else {
+      const rc = this.invoiceHeader.get('ruc');
+      const rz = this.invoiceHeader.get('razonSocial');
+      const sb = this.invoiceHeader.get('subtotal');
+      const igv = this.invoiceHeader.get('igv');
+      const tl = this.invoiceHeader.get('total');
 
-
-      },
-
-      error: (errorDato) => {
-        console.log(errorDato);
-      },
-    });
+      let error = '';
+      if (rc?.invalid) {
+        error += 'Por favor, ingresa un ruc.<br>';
+      }
+      if (rz?.invalid) {
+        error += 'Por favor, ingresa un Razon Social.<br>';
+      }
+      if (sb?.invalid) {
+        error += 'Por favor, ingresa un SubTotal.<br>';
+      }
+      if (igv?.invalid) {
+        error += 'Por favor, ingresa un Igv.<br>';
+      }
+      if (tl?.invalid) {
+        error += 'Por favor, ingresa un Total.<br>';
+      }
+      Swal.fire({
+        icon: 'error',
+        title: 'X',
+        html: error,
+      });
+    }
   }
 
-  addDetaiFact(idFactura: number, products: Product[], cantidades:number[]): InvoiceDetail[] {
+  addDetaiFact(
+    idFactura: number,
+    products: Product[],
+    cantidades: number[]
+  ): InvoiceDetail[] {
     const invoiceDetails: InvoiceDetail[] = [];
     products.forEach((productos, index) => {
-
       const cantidad = cantidades[index];
 
       const invoiceDetail: InvoiceDetail = {
@@ -121,7 +186,7 @@ export class FactComponent implements OnInit {
         nombreProducto: productos.nombre,
         precio: productos.precio,
         cantidad: cantidad,
-        subtotal: productos.precio *cantidad,
+        subtotal: productos.precio * cantidad,
         fechaCreacion: this.fecha,
       };
       invoiceDetails.push(invoiceDetail);
@@ -155,7 +220,7 @@ export class FactComponent implements OnInit {
       next: (getProduct) => {
         this.products.push(getProduct), (this.centinela = false);
         console.log('Productos=>', this.products);
-        
+
         //Validación de datos
         if (!this.cantidad.length && !this.subtotal.length) {
           this.cantidad = new Array(this.products.length).fill(0);
@@ -174,9 +239,9 @@ export class FactComponent implements OnInit {
 
   //Math Prec*Cant
   //Actualizar - Para los campos de Tb
-  actualizarSubtotal(index:number): void {
-    const cantidadProduct = this.cantidad[index]
-    this.subtotal[index] = cantidadProduct * this.products[index].precio
+  actualizarSubtotal(index: number): void {
+    const cantidadProduct = this.cantidad[index];
+    this.subtotal[index] = cantidadProduct * this.products[index].precio;
     this.sub_Total_ = this.calcularTotal();
     this.totalConIGV = this.calcularTotal() * 0.18;
     this.total = this.sub_Total_ + this.totalConIGV;
@@ -191,8 +256,10 @@ export class FactComponent implements OnInit {
     this.products.splice(index, 1);
     this.cantidad.splice(index, 1);
     this.subtotal.splice(index, 1);
+    this.sub_Total_ = this.calcularTotal();
+  this.totalConIGV = this.calcularTotal() * 0.18;
+  this.total = this.sub_Total_ + this.totalConIGV;
     console.log('Suma Total: ', this.calcularTotal());
+
   }
-
-
 }
